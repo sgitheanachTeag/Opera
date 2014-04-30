@@ -1,0 +1,42 @@
+a.section-news {
+  color: #6999f7 !important;
+}
+a.section-news:hover, a.section-news:focus {
+  color: #99bafa;
+}
+a.section-about {
+  color: #a4fbfc !important;
+}
+a.section-about:hover, a.section-about:focus {
+  color: #d5fdfe;
+}
+a.section-projects {
+  color: #6c946b !important;
+}
+a.section-projects:hover, a.section-projects:focus {
+  color: #89a989;
+}
+a.section-kids {
+  color: #a2c9c9 !important;
+}
+a.section-kids:hover, a.section-kids:focus {
+  color: #c2dcdc;
+}
+a.section-tickets {
+  color: #ca9bfa !important;
+}
+a.section-tickets:hover, a.section-tickets:focus {
+  color: #e4ccfc;
+}
+a.section-patrons {
+  color: #d0f87e !important;
+}
+a.section-patrons:hover, a.section-patrons:focus {
+  color: #e2fbae;
+}
+a.section-promo {
+  color: #19c3ee !important;
+}
+a.section-promo:hover, a.section-promo:focus {
+  color: #48cff2;
+}

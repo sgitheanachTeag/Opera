@@ -1,0 +1,22 @@
+{block #content}
+<img  class="banner" src="{$basePath}/static/img/content/banner.jpg">
+{/block}
+
+{block #hiddenClass}
+style="display:none;"
+{/block}
+
+{block #preloader}
+    <div id="preloader">
+    </div>
+
+<script type="text/javascript">
+$(document).ready( function () {
+    $('#preloader').delay(3000).fadeOut(500, function() { 
+        $(this).remove();
+        $('#content').fadeIn();
+
+    } );
+});
+</script>
+{/block}
