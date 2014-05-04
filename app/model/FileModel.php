@@ -1,8 +1,8 @@
 <?php
-class NewsModel extends Model {
+class FileModel extends Model {
 
     private function table () {
-        return $this->connection->table('news');
+        return $this->connection->table('files');
     }
 
     public function fetchAll() {

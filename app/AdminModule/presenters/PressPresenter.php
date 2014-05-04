@@ -5,30 +5,25 @@ namespace AdminModule;
 use Nette\Http\User,
     Nette\Application\UI\Form;
 
-final class NewsPresenter extends SecuredPresenter {
-//  /** @var PostsRepository */
-//  private $postsRepository;
-    
+final class PressPresenter extends SecuredPresenter {
+  
     /** @var NewsModel */
-    private $newsModel;
- 
-public function inject(\NewsModel $newsModel) {
-// $this->postsRepository = $postsRepository;
- $this->newsModel = $newsModel;
- } 
+    private $fileModel;
+     
+    public function inject(\FileModel $fileModel) {
+        $this->fileModel = $fileModel;
+    } 
 
 
     public function actionDefault () {
-            $this->template->news = $this->newsModel->fetchAll();
+            $this->template->pressFiles = $this->fileModel->fetchAll();
     }
 
 
     public function actionDelete ($id) {
-//      if ($this->newsModel->exists($id)){
             $this->newsModel->delete($id);
             $this->flashMessage('Aktualita odstraněna!');
             $this->redirect("default"); 
-//      }
     }
     public function actionEdit ($id) {
         $current_news = $this->newsModel->get($id); 
@@ -61,28 +56,24 @@ public function inject(\NewsModel $newsModel) {
 
     }
 
-
-
-    public function createComponentPostNewsForm () {
+    public function createComponentPressUploaderForm () {
+        
         $form = new \Nette\Application\UI\Form;
-//      $form->addGroup('Content');
-        $form->addTextArea('body', 'Aktualita:')
-            ->setAttribute('class', 'form-control')
-            ->addRule(Form::FILLED, 'Neposílej mě prázdný...');
+        $form->addTextArea('abstract', 'Abstrakt:')
+            ->setAttribute('class', 'form-control');
         $form->addText('header', 'Nadpis/Hlavička')
             ->setAttribute('class', 'form-control')
             ->addRule(Form::FILLED, 'Neposílej mě prázdný...');
-//      $form->addGroup('Validity');
-        $form->addText('dt_from', 'Začátek')
-            ->setAttribute('class', 'form-control');
-        $form->addText('dt_to', 'Konec')
-            ->setAttribute('class', 'form-control');
         $form->addCheckBox('is_public', '')
-            ->setOption('description', 'Zveřejnit i ve veřejné části.');
-//      $form->addGroup('Create');
+            ->setOption('description', 'Zveřejnit?');
+        $form->addUpload('file', 'Soubor')->setRequired('Tak nějaký soubor tu být musí, innit')
+//          ->addConditionOn(Form::FILLED)
+            ->addRule(Form::MAX_FILE_SIZE,'Větší, jak 5MB se tam nevejde. au.', 1024 * 1024 * 5);
+        $form->addSelect('file_class', 'Typ souboru', array( '1' => 'Tisková zpráva', 2 => 'Banner', 10 => 'Jiné'))
+            ->setDefaultValue(1);
         $form->addSubmit('post_news', 'Uložit')
             ->setAttribute('class', 'btn btn-primary');
-        $form->onSuccess[] = callback($this, 'postNewsFormSubmitted');
+        $form->onSuccess[] = callback($this, 'postPresUploaderFormSubmitted');
 
         $renderer = $form->getRenderer();
         $renderer->wrappers['controls']['container'] = null; //'dl';
@@ -92,13 +83,13 @@ public function inject(\NewsModel $newsModel) {
         return $form;
     }
 
-    public function postNewsFormSubmitted (Form $form) {
+    public function postPresUploaderFormSubmitted (Form $form) {
         $data = $form->getValues();
-        $postId = $this->getParameter('id');
+        $id = $this->getParameter('id');
         $data['dt_created'] = new \DateTime();
         $data['created_by'] = $this->getUser()->getIdentity()->id;
-        if ($postId) {
-            $post = $this->newsModel->get($postId);
+        if ($id) {
+            $post = $this->pressModel->get($id);
             $post->update($data);
         }
         else {

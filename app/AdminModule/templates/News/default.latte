@@ -4,6 +4,101 @@
   Založit novou zprávičku
 </button>
 
+
+<h1>Novinky</h1>
+<div id="news">
+    {if count($news)}
+        <table class="table table-stripped table-condensed">
+        <thead>
+        <th>
+            Datum platnosti
+        </th>
+        <th>
+            Tělo zprávičky
+        </th>
+        <th>
+            
+        </th>
+{*        <th>
+            News
+        </th>
+*}
+        <th>
+           
+        </th>
+        </thead>
+        <tbody>
+        {foreach $news as $new}
+        <tr id="news_lister_{$new['id']}">
+            <td>
+               {ifset $new['dt_from']}
+                    {$new['dt_from']|date: '%d.%m.%Y'}
+                {else}
+                    datum konání není známo
+                {/ifset} 
+            </td>
+            <td>
+                <h4>
+                    {$new['header']}
+                    <small>Přidáno {$new['dt_created']|date}</small>
+                </h4>
+                <p>
+                    {$new['body']}
+                </p>
+            </td>
+            <td>
+                {if $new['is_public']}
+                 <a class="btn btn-danger btn-sm edit_news"
+                     n:href="News:unpublish $new['id']"
+                >
+                Skrýt z webu
+                </a>
+                {else}
+                 <a class="btn btn-success btn-sm edit_news"
+                     n:href="News:publish $new['id']"
+                >
+                Zveřejnit na webu
+                </a>
+                {/if}
+            </td>
+            <td>
+{*
+            <div class="checkbox">
+                <label>
+                <input type="checkbox">
+                </label>
+            </div>
+*}
+            </td>
+            <td>
+                 <a class="btn btn-success btn-sm edit_news"
+                     n:href="News:edit $new['id']"
+                >
+                Upravit
+                </a>
+                 <a class="btn btn-danger btn-sm edit_news"
+                     n:href="News:delete $new['id']"
+                >
+                Smazat
+                </a>
+            </td>
+        </tr>
+        <div class="newsList">
+            <h3>{$new['header']}</h3>
+            
+            <p>{$new['body']}</p>
+        </div>
+        {/foreach}
+    </table>
+    {else}
+        <div class="alert alert-info">
+            Zatím nebyl napsán žádný článek.
+        </div>
+    {/if}
+</div>
+
+
+
 <!-- Modal -->
 <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
 aria-hidden="true">
@@ -25,50 +120,24 @@ aria-hidden="true">
   </div>
 </div>
 
+<script>
+$('button.edit_news').click( function () {
+    alert('shall fucken edit, innit');
+});
+</script>
 
 {/block}
 
 
 
 {block content2Working}
-<h2>Přidat novou novinku</h2>
-{control postNewsForm}
-{/block}
-
-
-{block #content1}
 <h1> Výpis zpráviček</h1>
 
-
-<table class="table table-stripped table-condensed">
-<thead>
-<th>
-    Datum platnosti
-</th>
-<th>
-    Tělo zprávičky
-</th>
-<th>
-    Aktuality
-</th>
-<th>
-    News
-</th>
-<th>
-    Upravit
-</th>
-</thead>
 <tbody>
     <tr>
         <td>
-        14. - 25. květen 2014
         </td>
         <td>
-        "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
-        ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
-        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
-        anim id est laborum."
         </td>
         <td>
         <div class="checkbox">
