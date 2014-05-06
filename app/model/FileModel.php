@@ -7,7 +7,7 @@ class FileModel extends Model {
 
     public function fetchAll() {
         return $this->table()
-        ->order('dt_from DESC');
+        ->order('dt_created DESC');
     }
 
 

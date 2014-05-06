@@ -9,14 +9,18 @@ final class PressPresenter extends SecuredPresenter {
   
     /** @var NewsModel */
     private $fileModel;
-     
-    public function inject(\FileModel $fileModel) {
+
+     /** @var FilestackDirs */
+    private $fileStack;
+    
+    public function inject(\FileModel $fileModel, \FilestackDirs $fileStack ) {
         $this->fileModel = $fileModel;
+        $this->fileStack = $fileStack;
     } 
 
 
     public function actionDefault () {
-            $this->template->pressFiles = $this->fileModel->fetchAll();
+            $this->template->files = $this->fileModel->fetchAll();
     }
 
 
@@ -56,7 +60,7 @@ final class PressPresenter extends SecuredPresenter {
 
     }
 
-    public function createComponentPressUploaderForm () {
+    public function createComponentFileUploaderForm () {
         
         $form = new \Nette\Application\UI\Form;
         $form->addTextArea('abstract', 'Abstrakt:')
@@ -73,7 +77,7 @@ final class PressPresenter extends SecuredPresenter {
             ->setDefaultValue(1);
         $form->addSubmit('post_news', 'Uložit')
             ->setAttribute('class', 'btn btn-primary');
-        $form->onSuccess[] = callback($this, 'postPresUploaderFormSubmitted');
+        $form->onSuccess[] = callback($this, 'postFileUploaderFormSubmitted');
 
         $renderer = $form->getRenderer();
         $renderer->wrappers['controls']['container'] = null; //'dl';
@@ -83,13 +87,19 @@ final class PressPresenter extends SecuredPresenter {
         return $form;
     }
 
-    public function postPresUploaderFormSubmitted (Form $form) {
+    public function postFileUploaderFormSubmitted (Form $form) {
         $data = $form->getValues();
         $id = $this->getParameter('id');
         $data['dt_created'] = new \DateTime();
-        $data['created_by'] = $this->getUser()->getIdentity()->id;
+#       $data['created_by'] = $this->getUser()->getIdentity()->id;
+
+        $file = $data['file'];
+        $filename = $file->getSanitizedName();
+        $extension =  pathinfo($filename, PATHINFO_EXTENSION);
+        $size =  $file->getSize();
+        $this->terminate();
         if ($id) {
-            $post = $this->pressModel->get($id);
+            $post = $this->fileModel->get($id);
             $post->update($data);
         }
         else {

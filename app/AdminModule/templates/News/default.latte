@@ -7,6 +7,7 @@
 
 <h1>Novinky</h1>
 <div id="news">
+
     {if count($news)}
         <table class="table table-stripped table-condensed">
         <thead>
@@ -19,10 +20,6 @@
         <th>
             
         </th>
-{*        <th>
-            News
-        </th>
-*}
         <th>
            
         </th>
@@ -83,11 +80,6 @@
                 </a>
             </td>
         </tr>
-        <div class="newsList">
-            <h3>{$new['header']}</h3>
-            
-            <p>{$new['body']}</p>
-        </div>
         {/foreach}
     </table>
     {else}
@@ -120,11 +112,6 @@ aria-hidden="true">
   </div>
 </div>
 
-<script>
-$('button.edit_news').click( function () {
-    alert('shall fucken edit, innit');
-});
-</script>
 
 {/block}
 
