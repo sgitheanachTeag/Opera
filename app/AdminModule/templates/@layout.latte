@@ -15,7 +15,8 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://code.jquery.com/jquery.js"></script>
+    {*<script src="https://code.jquery.com/jquery.js"></script>*}
+    <script src="{$basePath}/static/js/vendor/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{$basePath}/static/js/vendor/bs3/bootstrap.min.js"></script>
 
@@ -35,6 +36,8 @@
           <ul class="nav navbar-nav">
             <li><a href="{$basePath}/admin/">Hl. strana administrace</a></li>
             <li><a href="{$basePath}/admin/news">Aktuality</a></li>
+            <li><a href="{$basePath}/admin/tickets">Predprodej listku</a></li>
+            <li><a href="{$basePath}/admin/project">Projekty</a></li>
             <li><a href="{$basePath}/admin/mainBanner">Změnit Banner</a></li>
             <li><a n:href="Default:logout">odhlásit se</a></li>
           </ul>

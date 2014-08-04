@@ -1,7 +1,8 @@
 create table files (
     `id` int(11) NOT NULL AUTO_INCREMENT,
     name varchar(64),
-    suffix varchar(4),
+    filepath varchar(128),
+    extension varchar(4),
     filesize int,
     file_class int(1),-- tiskova zprava, etc... typ.
     dt_created datetime,

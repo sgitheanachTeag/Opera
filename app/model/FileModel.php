@@ -5,6 +5,12 @@ class FileModel extends Model {
         return $this->connection->table('files');
     }
 
+    public function fetch ($what, $order = 'dt_created DESC' ) {
+        return $this->table()
+            ->where($what)
+            ->order($order);
+    }
+
     public function fetchAll() {
         return $this->table()
         ->order('dt_created DESC');

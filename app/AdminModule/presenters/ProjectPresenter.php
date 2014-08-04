@@ -5,37 +5,28 @@ namespace AdminModule;
 use Nette\Http\User,
     Nette\Application\UI\Form;
 
-final class NewsPresenter extends SecuredPresenter {
-//  /** @var PostsRepository */
-//  private $postsRepository;
+final class ProjectPresenter extends SecuredPresenter {
     
-    /** @var NewsModel */
-    private $newsModel;
- 
-public function inject(\NewsModel $newsModel) {
-// $this->postsRepository = $postsRepository;
- $this->newsModel = $newsModel;
- } 
 
 
     public function actionDefault () {
-            $this->template->news = $this->newsModel->fetchAll();
+            $this->template->projects = $this->projectModel->fetchAll();
     }
 
 
     public function actionDelete ($id) {
-//      if ($this->newsModel->exists($id)){
-            $this->newsModel->delete($id);
+//      if ($this->projectModel->exists($id)){
+            $this->projectModel->delete($id);
             $this->flashMessage('Aktualita odstraněna!');
             $this->redirect("default"); 
 //      }
     }
     public function actionEdit ($id) {
-        $current_news = $this->newsModel->get($id); 
-        if (!$current_news) {
+        $current_projects = $this->projectModel->get($id); 
+        if (!$current_projects) {
             $this->error('Aktualita nenalezena');
         }
-        $this['postNewsForm']->setDefaults($current_news->toArray());    
+        $this['postProjectsForm']->setDefaults($current_projects->toArray());    
     }
 
     public function actionUnpublish ($id){
@@ -53,17 +44,17 @@ public function inject(\NewsModel $newsModel) {
 
 
     private function mk_publish ($id, $val) {
-        $current_news = $this->newsModel->get($id); 
-        if (!$current_news) {
+        $current_projects = $this->projectModel->get($id); 
+        if (!$current_projects) {
             $this->error('Aktualita nenalezena');
         }
-        $this->newsModel->publish($id, $val);
+        $this->projectModel->publish($id, $val);
 
     }
 
 
 
-    public function createComponentPostNewsForm () {
+    public function createComponentPostProjectsForm () {
         $form = new \Nette\Application\UI\Form;
 //      $form->addGroup('Content');
         $form->addTextArea('body', 'Aktualita:')
@@ -80,9 +71,9 @@ public function inject(\NewsModel $newsModel) {
         $form->addCheckBox('is_public', '')
             ->setOption('description', 'Zveřejnit i ve veřejné části.');
 //      $form->addGroup('Create');
-        $form->addSubmit('post_news', 'Uložit')
+        $form->addSubmit('post_projects', 'Uložit')
             ->setAttribute('class', 'btn btn-primary');
-        $form->onSuccess[] = callback($this, 'postNewsFormSubmitted');
+        $form->onSuccess[] = callback($this, 'postProjectsFormSubmitted');
 
         $renderer = $form->getRenderer();
         $renderer->wrappers['controls']['container'] = null; //'dl';
@@ -92,7 +83,7 @@ public function inject(\NewsModel $newsModel) {
         return $form;
     }
 
-    public function postNewsFormSubmitted (Form $form) {
+    public function postProjectsFormSubmitted (Form $form) {
         $data = $form->getValues();
         $postId = $this->getParameter('id');
         $data['dt_created'] = new \DateTime();
@@ -106,11 +97,11 @@ public function inject(\NewsModel $newsModel) {
         
         $data['created_by'] = $this->getUser()->getIdentity()->id;
         if ($postId) {
-            $post = $this->newsModel->get($postId);
+            $post = $this->projectModel->get($postId);
             $post->update($data);
         }
         else {
-           $id = $this->newsModel->insert($data);
+           $id = $this->projectModel->insert($data);
         }
         $this->flashMessage('Aktualita uložena!');
         $this->redirect("default"); 

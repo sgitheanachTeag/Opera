@@ -1,8 +1,18 @@
 ﻿{block #content}
 
-<h3> Tisková zpráva</h3>
+<h3> Tiskové zprávy a materiály pro novináře</h3>
 <p>
-<a href="{$basePath}/static/filestack/TZ.pdf">Zde lze stáhnout<a/> aktuální tiskovou zprávu.
+{if count($files) > 0}
+<ul>
+{foreach $files as $file}
+<li>
+<a href="{$basePath}/static/filestack/{$file['name']}">{$file['name']} <span>({$file['filesize']|bytes})</span><a/> 
+</li>
+{/foreach}
+</ul>
+{else}
+    Zatím nejsou k disposici žádné tiskové materiály ke stažení.
+{/if}
 </p>
 
 {/block}

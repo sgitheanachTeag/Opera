@@ -1,8 +1,8 @@
 <?php
-class NewsModel extends Model {
+class ProjectModel extends Model {
 
     private function table () {
-        return $this->connection->table('news');
+        return $this->connection->table('projects');
     }
 
     public function fetch ($what, $order = 'dt_created DESC' ) {

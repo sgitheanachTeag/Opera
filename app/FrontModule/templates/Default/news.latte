@@ -1,4 +1,28 @@
-﻿{block #content}
+﻿{block content}
+<h1>Aktuality, novinky, zprávičky</h1>
+{if count($news) > 0}
+{foreach $news as $new}
+<div class="row">
+<h3>{$new['header']}</h3>
+<div class="dt_int">
+   {$new['dt_from']|date:'l, j.F Y'} {ifset $new['dt_to']}
+        - {$new['dt_to']}
+    {/ifset}
+</div>
+<div class="news_body">
+    {$new['body']}
+</div>
+</div>
+{/foreach}
+{else}
+    Zatím nejsou k disposici žádné zprávy.
+{/if}
+
+{/block}
+
+
+
+{block #content1}
 <h1>Aktuality</h1>
 
 <div class="row">

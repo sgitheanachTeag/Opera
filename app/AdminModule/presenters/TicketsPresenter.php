@@ -5,68 +5,64 @@ namespace AdminModule;
 use Nette\Http\User,
     Nette\Application\UI\Form;
 
-final class NewsPresenter extends SecuredPresenter {
-//  /** @var PostsRepository */
-//  private $postsRepository;
+final class TicketsPresenter extends SecuredPresenter {
     
-    /** @var NewsModel */
-    private $newsModel;
+    /** @var TicketsModel */
+    private $ticketsModel;
  
-public function inject(\NewsModel $newsModel) {
+public function inject(\ticketsModel $ticketsModel) {
 // $this->postsRepository = $postsRepository;
- $this->newsModel = $newsModel;
+ $this->ticketsModel = $ticketsModel;
  } 
 
 
     public function actionDefault () {
-            $this->template->news = $this->newsModel->fetchAll();
+            $this->template->tickets = $this->ticketsModel->fetchAll();
     }
 
 
     public function actionDelete ($id) {
-//      if ($this->newsModel->exists($id)){
-            $this->newsModel->delete($id);
-            $this->flashMessage('Aktualita odstraněna!');
+            $this->ticketsModel->delete($id);
+            $this->flashMessage('Link na prodej listku odstraněn!');
             $this->redirect("default"); 
-//      }
     }
     public function actionEdit ($id) {
-        $current_news = $this->newsModel->get($id); 
-        if (!$current_news) {
-            $this->error('Aktualita nenalezena');
+        $current_tickets = $this->ticketsModel->get($id); 
+        if (!$current_tickets) {
+            $this->error('Listek nenalezen');
         }
-        $this['postNewsForm']->setDefaults($current_news->toArray());    
+        $this['postTicketsForm']->setDefaults($current_tickets->toArray());    
     }
 
     public function actionUnpublish ($id){
         $this->mk_publish($id, false);
-            $this->flashMessage('Aktualita nebude viditelná pro veřejnost!');
+            $this->flashMessage('Prodej listku nebude viditelny pro veřejnost!');
             $this->redirect("default"); 
     }
 
 
     public function actionPublish ($id){
         $this->mk_publish($id, true);
-        $this->flashMessage('Aktualita bude viditelná pro veřejnost!');
+        $this->flashMessage('Listek bude viditelny pro veřejnost!');
         $this->redirect("default"); 
     }
 
 
     private function mk_publish ($id, $val) {
-        $current_news = $this->newsModel->get($id); 
-        if (!$current_news) {
-            $this->error('Aktualita nenalezena');
+        $current_tickets = $this->ticketsModel->get($id); 
+        if (!$current_tickets) {
+            $this->error('Listek nenalezena');
         }
-        $this->newsModel->publish($id, $val);
+        $this->ticketsModel->publish($id, $val);
 
     }
 
 
 
-    public function createComponentPostNewsForm () {
+    public function createComponentPostTicketsForm () {
         $form = new \Nette\Application\UI\Form;
 //      $form->addGroup('Content');
-        $form->addTextArea('body', 'Aktualita:')
+        $form->addTextArea('body', 'Listek:')
             ->setAttribute('class', 'form-control')
             ->addRule(Form::FILLED, 'Neposílej mě prázdný...');
         $form->addText('header', 'Nadpis/Hlavička')
@@ -78,11 +74,11 @@ public function inject(\NewsModel $newsModel) {
         $form->addText('dt_to', 'Konec')
             ->setAttribute('class', 'form-control');
         $form->addCheckBox('is_public', '')
-            ->setOption('description', 'Zveřejnit i ve veřejné části.');
+            ->setOption('description', 'Zveřejnityi ve veřejné části.');
 //      $form->addGroup('Create');
-        $form->addSubmit('post_news', 'Uložit')
+        $form->addSubmit('post_tickets', 'Uložit')
             ->setAttribute('class', 'btn btn-primary');
-        $form->onSuccess[] = callback($this, 'postNewsFormSubmitted');
+        $form->onSuccess[] = callback($this, 'postTicketsFormSubmitted');
 
         $renderer = $form->getRenderer();
         $renderer->wrappers['controls']['container'] = null; //'dl';
@@ -92,7 +88,7 @@ public function inject(\NewsModel $newsModel) {
         return $form;
     }
 
-    public function postNewsFormSubmitted (Form $form) {
+    public function postTicketsFormSubmitted (Form $form) {
         $data = $form->getValues();
         $postId = $this->getParameter('id');
         $data['dt_created'] = new \DateTime();
@@ -106,13 +102,13 @@ public function inject(\NewsModel $newsModel) {
         
         $data['created_by'] = $this->getUser()->getIdentity()->id;
         if ($postId) {
-            $post = $this->newsModel->get($postId);
+            $post = $this->ticketsModel->get($postId);
             $post->update($data);
         }
         else {
-           $id = $this->newsModel->insert($data);
+           $id = $this->ticketsModel->insert($data);
         }
-        $this->flashMessage('Aktualita uložena!');
+        $this->flashMessage('Link pro prodej listku uložen!');
         $this->redirect("default"); 
     }
 

@@ -33,9 +33,9 @@
                     {$file['header']}
                     <small>Přidáno {$file['dt_created']|date}</small>
                 </h3>   
-                <h4>
-                    {$file['name']}.{$file['suffix']}
-                </h4>
+                <a href="{$baseUrl}/static/filestack/{$file['name']}" class="btn btn-info">
+                    {$file['name']}
+                </a>
                 <p>
                     {ifset $file['abstract']}
                         {$file['abstract']}
@@ -45,13 +45,13 @@
             <td>
                 {if $file['is_public']}
                  <a class="btn btn-danger btn-sm edit_files"
-                     n:href="News:unpublish $file['id']"
+                     n:href="Press:unpublish $file['id']"
                 >
                 Skrýt z webu
                 </a>
                 {else}
                  <a class="btn btn-success btn-sm edit_files"
-                     n:href="News:publish $file['id']"
+                     n:href="Press:publish $file['id']"
                 >
                 Zveřejnit na webu
                 </a>
@@ -59,12 +59,12 @@
             </td>
             <td>
                  <a class="btn btn-success btn-sm edit_files"
-                     n:href="News:edit $file['id']"
+                     n:href="Press:edit $file['id']"
                 >
                 Upravit
                 </a>
                  <a class="btn btn-danger btn-sm edit_files"
-                     n:href="News:delete $file['id']"
+                     n:href="Press:delete $file['id']"
                 >
                 Smazat
                 </a>

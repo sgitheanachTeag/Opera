@@ -6,8 +6,7 @@ use Nette\Security\User;
 
 final class DefaultPresenter extends BasePresenter
 {
-    public function startup()
-    {
+    public function startup(){
         parent::startup();
 
         $user = $this->getUser();
@@ -23,7 +22,6 @@ odhlásil.', 'warning');
 
         } else {
             if ( !$user->isLoggedIn) {
-#!$user->isAllowed($this->name, $this->action)) {
                 $this->flashMessage('Na vstup do tejto sekcie nemáte dostatočné oprávnenia!', 'warning');
                 $this->redirect('Auth:login');
             }
@@ -52,4 +50,3 @@ odhlásil.', 'warning');
     }
 
 }
-
