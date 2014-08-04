@@ -1,4 +1,20 @@
 {block #content}
-{include $proj}
-asdasdasdasdasdasdasds
+<h2>{$project->header}</h2>
+
+<p>
+{if ($project->dt_from > $now)}
+    Bude se konat:
+{else}
+    Konalo se:
+{/if} 
+{$project['dt_from']|date}
+{if $project->dt_to}
+ - {$project->dt_to|date}
+{/if}
+</p>
+
+<p>
+{$project->body}
+</p>
+
 {/block}

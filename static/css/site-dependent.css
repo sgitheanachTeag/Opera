@@ -45,7 +45,10 @@ html, body {
 } 
 
 
-
+.logo_background {
+    background-image: url('../img/layout/logo_banner_bckgrnd.jpg');
+    background-size: 100% auto;
+}
 
 
 

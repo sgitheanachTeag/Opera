@@ -34,7 +34,7 @@ if (function_exists('apache_get_modules') && in_array('mod_rewrite', apache_get_
 
 	$router[] = $frontRouter = new RouteList('Front');
     $frontRouter[] = new Route('<action>', 'Default:default');
-  	$frontRouter[] = new Route('projects/[<id>]', 'Project:view');
+  	$frontRouter[] = new Route('projects/[<slug>]', 'Project:view');
 
 } else {
 	$container->addService('router', new SimpleRouter('Front:Default:default'));

@@ -19,8 +19,8 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
     } 
 
 	protected function beforeRender() {
-        $projectListFuture = $this->projectModel->fetch("dt_from > now()");	
-        $projectListPast = $this->projectModel->fetch("dt_from < now()");	
+        $projectListFuture = $this->projectModel->table()->where('dt_from > ? AND is_public ?', 'now()', 'true');	
+        $projectListPast   = $this->projectModel->table()->where('dt_from < ? AND is_public ?', 'now()', 'true');	
         $this->template->projectListPast =  $projectListPast;
 
 //      $this->template->projectListCurrent = array(

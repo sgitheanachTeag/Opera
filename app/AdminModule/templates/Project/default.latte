@@ -37,7 +37,7 @@
             <td>
                 <h4>
                     {$new['header']}
-                    <small>Přidáno {$new['dt_created']|date}</small>
+                    <small>Přidáno {* $new['dt_created']|date *}</small>
                 </h4>
                 <p>
                     {$new['body']}
@@ -46,13 +46,13 @@
             <td>
                 {if $new['is_public']}
                  <a class="btn btn-danger btn-sm edit_projects"
-                     n:href="Projects:unpublish $new['id']"
+                     n:href="Project:unpublish $new['id']"
                 >
                 Skrýt z webu
                 </a>
                 {else}
                  <a class="btn btn-success btn-sm edit_projects"
-                     n:href="Projects:publish $new['id']"
+                     n:href="Project:publish $new['id']"
                 >
                 Zveřejnit na webu
                 </a>
@@ -69,12 +69,12 @@
             </td>
             <td>
                  <a class="btn btn-success btn-sm edit_projects"
-                     n:href="Projects:edit $new['id']"
+                     n:href="Project:edit $new['id']"
                 >
                 Upravit
                 </a>
                  <a class="btn btn-danger btn-sm edit_projects"
-                     n:href="Projects:delete $new['id']"
+                     n:href="Project:delete $new['id']"
                 >
                 Smazat
                 </a>
@@ -98,7 +98,7 @@ aria-hidden="true">
     <div class="modal-content">
       <div class="modal-header">
         <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-        <h4 class="modal-title" id="myModalLabel">Nová zprávička</h4>
+        <h4 class="modal-title" id="myModalLabel">Nový projekt</h4>
       </div>
       <div class="modal-body">
         {control postProjectsForm}

@@ -1,15 +1,16 @@
 <?php
 class ProjectModel extends Model {
 
-    private function table () {
+    public function table () {
         return $this->connection->table('projects');
     }
 
-    public function fetch ($what, $order = 'dt_created DESC' ) {
+    public function fetch ($what, $order = 'DT_CREATED DESC' ) {
         return $this->table()
             ->where($what)
-            ->order($order);
+            ->order($order);;
     }
+
     public function fetchAll() {
         return $this->table()
         ->order('dt_from DESC');

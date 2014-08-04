@@ -29,11 +29,11 @@
 <header class="navbar navbar-inverse header-outer navbar-static-top" role="banner">
     <div class="container form-inline">
         <a href="{$basePath}">
-            <img src="{$basePath}/static/img/layout/logo.jpg" alt="Image" id="logo"
+            <img src="{$basePath}/static/img/layout/logo_inverted_wee.jpg" alt="OnC Logo" id="logo"
                 class="img-responsive pull-left"/>
         </a>
 
-        <div class="navbar-collapse collapse padding-top pull-right">
+        <div class="navbar-collapse collapse padding-top pull-right logo_background" >
           <ul class="nav navbar-nav">
             <li><a class="section-news"     href="{$basePath}/news">Aktuality</a></li>
             <li><a class="section-about"    href="{$basePath}/about">O nás</a></li>
@@ -41,14 +41,14 @@
                 <a href="#" class="dropdown-toggle section-projects" data-toggle="dropdown">Naše projekty <b class="caret"></b></a>
                 <ul class="dropdown-menu" role="menu" aria-labelledby="dropdownMenu1">
                     <li><a  href="{$basePath}/projects">O našich projektech</a></li>
-                    <li class="divider"></li>
                     {if count($projectListFuture) > 0}
+                        <li class="divider"></li>
                         <li class="dropdown-header">Plánované</li>
                         {foreach $projectListFuture as $p}
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1"
-                                href="{$basePath . '/projects/' . $p['link']}">
-                            {$p['desc']}
+                                href="{$basePath . '/projects/' . $p['slug']}">
+                            {$p['header_short']}
                             </a>
                         </li>
                         {/foreach}
@@ -58,8 +58,8 @@
                         {foreach $projectListPast as $p}
                         <li role="presentation">
                             <a role="menuitem" tabindex="-1"
-                                href="{$basePath . '/projects/' . $p['link']}">
-                            {$p['desc']}
+                                href="{$basePath . '/projects/' . $p['slug']}">
+                            {$p['header_short']}
                             </a>
                         </li>
                         {/foreach}

@@ -57,16 +57,19 @@ final class ProjectPresenter extends SecuredPresenter {
     public function createComponentPostProjectsForm () {
         $form = new \Nette\Application\UI\Form;
 //      $form->addGroup('Content');
-        $form->addTextArea('body', 'Aktualita:')
+        $form->addTextArea('body', 'Tělo projektu:')
             ->setAttribute('class', 'form-control')
             ->addRule(Form::FILLED, 'Neposílej mě prázdný...');
         $form->addText('header', 'Nadpis/Hlavička')
             ->setAttribute('class', 'form-control')
             ->addRule(Form::FILLED, 'Neposílej mě prázdný...');
+        $form->addText('header_short', 'Zkrácený nadpis (do menu)')
+            ->setAttribute('class', 'form-control')
+            ->addRule(Form::FILLED, 'Neposílej mě prázdný...');
 //      $form->addGroup('Validity');
-        $form->addText('dt_from', 'Začátek')
+        $form->addText('dt_from', 'Koná se od')
             ->setAttribute('class', 'form-control');
-        $form->addText('dt_to', 'Konec')
+        $form->addText('dt_to', 'Koná se do')
             ->setAttribute('class', 'form-control');
         $form->addCheckBox('is_public', '')
             ->setOption('description', 'Zveřejnit i ve veřejné části.');
@@ -87,6 +90,7 @@ final class ProjectPresenter extends SecuredPresenter {
         $data = $form->getValues();
         $postId = $this->getParameter('id');
         $data['dt_created'] = new \DateTime();
+        $data['slug'] = \Nette\Utils\Strings::webalize($data['header_short']);
         $data['dt_from'] = new \DateTime($data['dt_from']);
         if ($data['dt_to']) {
         $data['dt_to'] = new \DateTime($data['dt_to']);
@@ -95,7 +99,7 @@ final class ProjectPresenter extends SecuredPresenter {
             unset($data['dt_to']);
         } 
         
-        $data['created_by'] = $this->getUser()->getIdentity()->id;
+//      $data['created_by'] = $this->getUser()->getIdentity()->id;
         if ($postId) {
             $post = $this->projectModel->get($postId);
             $post->update($data);
@@ -103,7 +107,7 @@ final class ProjectPresenter extends SecuredPresenter {
         else {
            $id = $this->projectModel->insert($data);
         }
-        $this->flashMessage('Aktualita uložena!');
+        $this->flashMessage('Byl založen nový projekt!');
         $this->redirect("default"); 
     }
 
