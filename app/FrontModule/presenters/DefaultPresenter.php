@@ -16,6 +16,8 @@ class DefaultPresenter extends \BasePresenter {
         }
     }
 
+
+
     function renderNews () {
         $this->template->news = $this->newsModel->fetch(array('is_public' => 1));
     }

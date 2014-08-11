@@ -24,8 +24,36 @@
     <script src="{$basePath}/static/js/site-dependent.js"></script>
   </head>
   <body>
-   {* {block #preloader}{/block} *}
+  {if ($visitCnt > 1)} {block #preloader}{/block} {/if}
 <div id="content" >  
+    {include menuBar}
+    <div class="container">
+        <div n:if="count($flashes)>0" id="flashmessages">
+            <div n:foreach="$flashes as $flash"
+                class='flashmessage {$flash->type} alert alert-{$flash->type}'>{$flash->message}
+            </div>
+        </div>
+    <!-- Main component for a primary marketing message or call to action -->
+            {block #content}{/block}
+    </div> <!-- /container -->
+    <div class="flush"></div>
+</div>
+<div class="footer">
+<div class="container">
+<p class="pull-left">Copyright &copy;2014 
+    <em>Opera na cestách</em>
+</p>
+<p class="pull-right">
+    created and maintained by <a href="#" rel="author">scottyshek</a>.
+</p>
+</p>
+</div>
+</footer>
+</div>
+  </body>
+</html>
+
+{define #menuBar}
 <header class="navbar navbar-inverse header-outer navbar-static-top" role="banner">
     <div class="container form-inline">
         <a href="{$basePath}">
@@ -76,30 +104,4 @@
 </header>
 
 
-    <div class="container">
-        <div n:if="count($flashes)>0" id="flashmessages">
-            <div n:foreach="$flashes as $flash"
-                class='flashmessage {$flash->type} alert alert-{$flash->type}'>{$flash->message}
-            </div>
-        </div>
-    <!-- Main component for a primary marketing message or call to action -->
-            {block #content}{/block}
-    </div> <!-- /container -->
-    <div class="flush"></div>
-</div>
-<div class="footer">
-<div class="container">
-<p class="pull-left">Copyright &copy;2014 
-    <em>Opera na cestách</em>
-</p>
-<p class="pull-right">
-    created and maintained by <a href="#" rel="author">scottyshek</a>.
-</p>
-</p>
-</div>
-</footer>
-</div>
-  </body>
-</html>
-
-
+{/define}

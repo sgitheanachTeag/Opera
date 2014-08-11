@@ -50,6 +50,15 @@ html, body {
     background-size: 100% auto;
 }
 
+body {
+    background: url('http://wallpaper-million.com/Wallpapers/f/Fields/Beautiful-Country-Road-and-grass-field-at-sunset-wallpaper_5900.jpg') no-repeat fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    background-color:#333;
+    background-size:100% 100%;
+}
 
 
 

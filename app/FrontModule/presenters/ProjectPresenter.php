@@ -5,7 +5,7 @@ namespace FrontModule;
 class ProjectPresenter extends \BasePresenter {
 
     function actionView ($slug) {
-        $project = $this->projectModel->fetch(array('slug' =>   $slug))->fetch();
+        $project = $this->projectModel->table()->where('slug = ? AND is_public = ? ' , $slug, 1 )->fetch();
         if($project && $project->id) {
             $this->template->project = $project;
             $this->template->now = new \DateTime();
