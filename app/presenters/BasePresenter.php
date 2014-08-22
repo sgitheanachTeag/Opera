@@ -32,9 +32,9 @@ abstract class BasePresenter extends Nette\Application\UI\Presenter {
 
         $this->template->projectListFuture  = $projectListFuture;
         $visitCnt = $this->getSession('visitCnt');
-        $visitCnt->count++;
         $visitCnt->setExpiration(10*60, 'count');
         $this->template->visitCnt = $visitCnt->count;
+        $visitCnt->count++;
 	}
 
 }

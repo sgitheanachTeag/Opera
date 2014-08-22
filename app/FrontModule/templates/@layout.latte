@@ -15,8 +15,6 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
     <![endif]-->
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    {*<script src="https://code.jquery.com/jquery.js"></script>*}
-
     <script src="{$basePath}/static/js/vendor/jquery.js"></script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="{$basePath}/static/js/vendor/bs3/bootstrap.min.js"></script>
@@ -24,7 +22,7 @@
     <script src="{$basePath}/static/js/site-dependent.js"></script>
   </head>
   <body>
-  {if ($visitCnt > 1)} {block #preloader}{/block} {/if}
+  {if ($visitCnt < 1)} {block #preloader}{/block} {/if}
 <div id="content" >  
     {include menuBar}
     <div class="container">
@@ -46,7 +44,6 @@
 <p class="pull-right">
     created and maintained by <a href="#" rel="author">scottyshek</a>.
 </p>
-</p>
 </div>
 </footer>
 </div>
@@ -56,7 +53,7 @@
 {define #menuBar}
 <header class="navbar navbar-inverse header-outer navbar-static-top" role="banner">
     <div class="container form-inline">
-        <a href="{$basePath}">
+        <a href="/">
             <img src="{$basePath}/static/img/layout/logo_inverted_wee.jpg" alt="OnC Logo" id="logo"
                 class="img-responsive pull-left"/>
         </a>

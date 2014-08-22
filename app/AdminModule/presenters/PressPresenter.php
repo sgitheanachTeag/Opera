@@ -7,16 +7,16 @@ use Nette\Http\User,
 
 final class PressPresenter extends SecuredPresenter {
   
-    /** @var NewsModel */
-    private $fileModel;
+//  /** @var NewsModel */
+//  private $fileModel;
 
-     /** @var FilestackDirs */
-    private $fileStack;
+//   /** @var FilestackDirs */
+//  private $fileStack;
     
-    public function inject(\FileModel $fileModel, \FilestackDirs $fileStack ) {
-        $this->fileModel = $fileModel;
-        $this->fileStack = $fileStack;
-    } 
+//  public function inject(\FileModel $fileModel, \FilestackDirs $fileStack ) {
+//      $this->fileModel = $fileModel;
+//      $this->fileStack = $fileStack;
+//  } 
 
 
     public function actionDefault () {

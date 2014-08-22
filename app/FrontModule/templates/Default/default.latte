@@ -1,5 +1,7 @@
 {block #content}
-<img  class="banner" src="{$basePath}/static/img/content/banner.jpg">
+<div class="jumbotron">
+<img  class="banner" src="{$basePath}/static/img/content/baner_bartAKTUAL.jpg">
+</div>
 {/block}
 
 {block #hiddenClass}
@@ -11,11 +13,10 @@ style="display:none;"
     </div>
 
 <script type="text/javascript">
-$(document).ready( function () {
+$(window).load( function () {
     $('#preloader').delay(3000).fadeOut(500, function() { 
         $(this).remove();
         $('#content').fadeIn();
-
     } );
 });
 </script>

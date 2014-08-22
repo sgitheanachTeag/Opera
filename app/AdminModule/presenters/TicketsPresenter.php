@@ -7,13 +7,13 @@ use Nette\Http\User,
 
 final class TicketsPresenter extends SecuredPresenter {
     
-    /** @var TicketsModel */
-    private $ticketsModel;
- 
-public function inject(\ticketsModel $ticketsModel) {
-// $this->postsRepository = $postsRepository;
- $this->ticketsModel = $ticketsModel;
- } 
+//      /** @var TicketsModel */
+//      private $ticketsModel;
+//   
+//  public function inject(\ticketsModel $ticketsModel) {
+//  // $this->postsRepository = $postsRepository;
+//   $this->ticketsModel = $ticketsModel;
+//   } 
 
 
     public function actionDefault () {

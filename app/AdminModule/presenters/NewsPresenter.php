@@ -9,13 +9,13 @@ final class NewsPresenter extends SecuredPresenter {
 //  /** @var PostsRepository */
 //  private $postsRepository;
     
-    /** @var NewsModel */
-    private $newsModel;
+//  /** @var NewsModel */
+//  private $newsModel;
  
-public function inject(\NewsModel $newsModel) {
-// $this->postsRepository = $postsRepository;
- $this->newsModel = $newsModel;
- } 
+//  public function inject(\NewsModel $newsModel) {
+//  // $this->postsRepository = $postsRepository;
+//   $this->newsModel = $newsModel;
+//   } 
 
 
     public function actionDefault () {
